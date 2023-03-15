@@ -2,16 +2,25 @@ import {Todo} from "./Todo";
 
 export class User {
     constructor(
-        public todo: Todo[],
         public username: string,
+        public todos: Todo[],
     ) {
     }
 
-    displayUserInfo(): string {
-        return `Username :${this.username} \n`;
+    getUserName() {
+        return this.username;
     }
 
     setUserName(name: string) {
-         this.username = name;
+        this.username = name;
     }
+
+    // I nit to do list Array
+    addToDo(todo: Todo) {
+        if (this.todos == null) {
+            this.todos = new Array<Todo>();
+        }
+        this.todos.push(todo);
+    }
+
 }
