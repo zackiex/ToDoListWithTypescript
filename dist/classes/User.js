@@ -2,36 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 class User {
-    constructor(userId, username, password, userLastName, userFirstName, userPhone, userEmail) {
-        this.userId = userId;
+    constructor(username, todos) {
         this.username = username;
-        this.password = password;
-        this.userLastName = userLastName;
-        this.userFirstName = userFirstName;
-        this.userPhone = userPhone;
-        this.userEmail = userEmail;
+        this.todos = todos;
     }
-    displayUserInfo() {
-        return `Username :${this.username} \n` +
-            `Last name : ${this.userLastName} First name : ${this.userFirstName} \n` +
-            `Phone : ${this.userPhone} \n` +
-            `E-mail: ${this.userEmail} \n`;
-    }
-    setPassword(oldPassword, newPassword) {
-        let ps = true;
-        while (ps) {
-            if (oldPassword == this.password) {
-                ps = false;
-                console.log("Password successfully changed");
-                return this.password = newPassword;
-            }
-            else {
-                console.log("Old password is incorrect");
-            }
-        }
+    getUserName() {
+        return this.username;
     }
     setUserName(name) {
-        return this.username = name;
+        this.username = name;
+    }
+    // Init to do list in Array
+    addToDo(todo) {
+        if (this.todos == null) {
+            this.todos = new Array();
+        }
+        this.todos.push(todo);
     }
 }
 exports.User = User;
+//# sourceMappingURL=User.js.map

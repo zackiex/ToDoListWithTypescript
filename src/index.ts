@@ -44,10 +44,32 @@ arrayOfToDoWithUsers.push(user1, user2, user3);
 checkUserAndTasks(arrayOfToDoWithUsers);
 console.log("-----List are printed-----\n");
 
-
 console.log("-----Update a list of users to do a task-----");
-todo1.setUsersToDoATask([], todo1);
+console.log("The previous to-do-list to " + user1.username + " war:\n");
+console.log(user1.todos);
+user1.todos = [todo0, todo1, todo2];
+console.log("The new to-do-list to " + user1.username + " will be : \n");
+console.log(user1.todos);
+console.log("-----******* Updated successfully *******-----\n");
+
+console.log("-----********** Update elements in a To-Do-List **********-----\n");
+console.log("The list bevor the update !\n");
 console.log(todo1);
+console.log("The list after the update !\n");
+todo1.setTitle("New Title");
+todo1.setDescription("*******New Description*******");
+todo1.setMarkAsDone(true);
+console.log(todo1);
+console.log("-----******* Updated successfully *******-----\n");
+
+console.log("-----********** Update user info **********-----\n");
+console.log("The user bevor the update \n" + user1.getUserName());
+user1.setUserName("New Name :)");
+console.log("The user after the update ! \n" + user1.getUserName());
+console.log("-----******* Updated successfully *******-----\n");
+
+//todo1.setUsersToDoATask([], todo1);
+//console.log(todo1);
 
 //const user2 = new User("AbdelHamid", [todo, todo]);
 //toDoList.push(taskOne, taskTwo, taskThree);

@@ -20,19 +20,24 @@ export class Todo {
             `This task was updated on : ${this.updated_at} \n`;
     }
 
-    setUsersToDoATask(user: User[],todo:Todo) {
-        if (user.length == 0) {
+    /*setUsersToDoATask(newUser: User[], todo: Todo[], oldUser: User[]) {
+        if (newUser.length == 0) {
             this.users = new Array<User>();
-            console.log("No user !")
+            console.log("List of new users is empty !")
+        } else if (todo.length == 0) {
+            this.users = new Array<User>();
+            console.log("List of To-Do is empty !")
         }
-        //  else if (this.title == title) {
-        //     console.log("No changes !");
+        if (oldUser.length == 0) {
+            this.users = new Array<User>();
+            console.log("List of old users is empty !")
+        } else {
+        this.users = newUser;
+        }
+            //  else if (this.title == title) {
+            //     console.log("No changes !");
         // }
-            else {
-            this.users = user;
-            console.log("user has been changed");
-        }
-    }
+    }*/
 
     setTitle(newTitle: string) {
         this.title = newTitle;
@@ -55,7 +60,7 @@ export class Todo {
     }
 
     setMarkAsDone(isTaskCompleted: boolean) {
-        return isTaskCompleted;
+        this.complete = isTaskCompleted;
     }
 
 }
