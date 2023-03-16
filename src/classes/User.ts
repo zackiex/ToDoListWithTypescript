@@ -15,7 +15,7 @@ export class User {
         this.username = name;
     }
 
-    // I nit to do list Array
+    // Init to do list in Array
     addToDo(todo: Todo) {
         if (this.todos == null) {
             this.todos = new Array<Todo>();
