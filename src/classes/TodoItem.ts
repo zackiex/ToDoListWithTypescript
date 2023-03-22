@@ -60,32 +60,4 @@ export class TodoItem {
     completeItem() {
         this._isCompleted = true;
     }
-
-
-    /*
-    displayList(todo: TodoItem): string {
-        return `The Title of this task is :${this.title} \n` +
-            `You have to do the following : ${this.description} \n` +
-            `The task was created on : ${this.created_at}  and supposed to be completed on ${this.deadline} \n` +
-            `This task was updated on : ${this.updated_at} \n`;
-    }
-*/
-    /*setUsersToDoATask(newUser: User[], todo: TodoItem[], oldUser: User[]) {
-        if (newUser.length == 0) {
-            this.users = new Array<User>();
-            console.log("List of new users is empty !")
-        } else if (todo.length == 0) {
-            this.users = new Array<User>();
-            console.log("List of To-Do is empty !")
-        }
-        if (oldUser.length == 0) {
-            this.users = new Array<User>();
-            console.log("List of old users is empty !")
-        } else {
-        this.users = newUser;
-        }
-            //  else if (this.title == title) {
-            //     console.log("No changes !");
-        // }
-    }*/
 }

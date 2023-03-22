@@ -10,29 +10,30 @@ const deadLineToDo3 = new Date(2023, 12, 12);
 const created_atToDo3 = new Date(2023, 1, 1);
 
 console.log("Welcome to the TO DO App \n");
-const user1 = new User('John');
-const user2 = new User('Jane');
 
-const todoList1 = user1.createTodoList('Shopping List');
-const todoList2 = user2.createTodoList('Work Tasks');
+const user1 = new User('Zakaria');
+const user2 = new User('AbdelHamid');
 
-const todoItem1 = todoList1.createTodoItem('Buy milk', deadLineToDo1, created_atToDo1, "C1");
-const todoItem2 = todoList1.createTodoItem('Buy bread', deadLineToDo2, created_atToDo2, "C1");
+const todoList1 = user1.createTodoList('Development');
+const todoList2 = user2.createTodoList('Shopping');
 
-const todoItem3 = todoList2.createTodoItem('Finish project', deadLineToDo3, created_atToDo3, "C2");
-const todoItem4 = todoList2.createTodoItem('Send email to boss', deadLineToDo1, created_atToDo1, "C3");
+const todoItem1 = todoList2.createTodoItem('Buy milk', deadLineToDo1, created_atToDo1, "C1");
+const todoItem2 = todoList2.createTodoItem('Buy bread', deadLineToDo2, created_atToDo2, "C1");
+
+const todoItem3 = todoList1.createTodoItem('Finish project', deadLineToDo3, created_atToDo3, "C2");
+const todoItem4 = todoList1.createTodoItem('Send email to boss', deadLineToDo1, created_atToDo1, "C3");
 
 console.log(user1.todoLists); // [todoList1]
 console.log(todoList1.todoItem); // [todoItem1, todoItem2]
 
-todoItem1.updateDescription('Buy almond milk');
-console.log(todoItem1.description); // 'Buy almond milk'
+todoItem2.updateDescription('Groceries list');
+console.log(todoItem2.description); // 'Buy almond milk'
 
 todoItem3.completeItem();
 console.log(todoItem3.completeItem()); // true
 
-user1.deleteTodoList(todoList1);
-console.log(user1.todoLists); // []
+//user1.deleteTodoList(todoList1);
+//console.log(user1.todoLists); // []
 
 // const user = new User("Zakaria", []);
 // user.addTodoList("Make TypeScript App");

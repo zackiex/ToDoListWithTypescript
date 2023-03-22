@@ -46,24 +46,10 @@ export class TodoList {
         return newTodoItem;
     }
 
-    deleteTodoItem(todoItem: TodoItem) {
-        const index = this._todoItems.indexOf(todoItem);
-        if (index > -1) {
-            this._todoItems.splice(index, 1);
-        }
-    }
-
-    // addItem(title: string, description: string, deadLine: Date, created_at: Date, category: string, complete: boolean) {
-    //     const item = new TodoItem(title, description, deadLine, created_at, category, complete);
-    //     this._todoListItem.push(item);
-    //
-    // }
-    //
-    // removeTodoItem(todo: TodoItem) {
-    //     const index = this._todoListItem.indexOf(todo);
-    //     if (index !== -1) {
-    //         this._todoListItem.splice(index, 1);
+    // deleteTodoItem(todoItem: TodoItem) {
+    //     const index = this._todoItems.indexOf(todoItem);
+    //     if (index > -1) {
+    //         this._todoItems.splice(index, 1);
     //     }
     // }
-
 }
