@@ -1,26 +1,45 @@
-import {Todo} from "./Todo";
+import {TodoList} from "./TodoList";
 
 export class User {
-    constructor(
-        public username: string,
-        public todos: Todo[],
-    ) {
+    private _username: string;
+    _todoLists: TodoList[];
+
+    constructor(username: string) {
+        this._username = username;
+        this._todoLists = [];
     }
 
-    getUserName() {
-        return this.username;
+    get username(): string {
+        return this._username;
     }
 
-    setUserName(name: string) {
-        this.username = name;
+    set username(username: string) {
+        this._username = username;
     }
 
-    // Init to do list in Array
-    addToDo(todo: Todo) {
-        if (this.todos == null) {
-            this.todos = new Array<Todo>();
+    get todoLists(): TodoList[] {
+        return this._todoLists;
+    }
+
+    set todoLists(todoList: TodoList[]) {
+        this._todoLists = todoList;
+    }
+
+    createTodoList(title: string) {
+        const newTodoList = new TodoList(title);
+        this._todoLists.push(newTodoList);
+        return newTodoList;
+    }
+
+    deleteTodoList(todoList: TodoList) {
+        const index = this._todoLists.indexOf(todoList);
+        if (index > -1) {
+            this._todoLists.splice(index, 1);
         }
-        this.todos.push(todo);
     }
 
+    // addTodoList(name: string) {
+    //     const todo = new TodoList([], name);
+    //     this._todos.push(todo);
+    // }
 }
