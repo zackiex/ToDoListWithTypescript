@@ -24,17 +24,10 @@ export class User {
         this._todoLists = todoList;
     }
 
-    // createTodoList(title: string) {
-    //     const newTodoList = new TodoList(title);
-    //     this._todoLists.push(newTodoList);
-    //     return newTodoList;
-    // }
-
-    // deleteTodoList(todoList: TodoList) {
-    //     const index = this._todoLists.indexOf(todoList);
-    //     if (index > -1) {
-    //         this._todoLists.splice(index, 1);
-    //     }
-    // }
-
+    public deleteTodoList(todoList: TodoList): void {
+        const index = this.todoLists.indexOf(todoList);
+        if (index !== -1) {
+            this.todoLists.splice(index, 1);
+        }
+    }
 }

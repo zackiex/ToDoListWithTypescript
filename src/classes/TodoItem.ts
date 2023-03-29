@@ -6,7 +6,7 @@ export class TodoItem {
     // private _deadLine: Date;
     // private _created_at: Date;
     // private _category: string;
-    _todoLists: TodoList[] = [];
+    private _todoLists: TodoList[] = [];
 
     constructor(description: string, /*deadLine: Date, createdAt: Date, category: string,*/ todoList: TodoList) {
         this._description = description;
@@ -15,6 +15,14 @@ export class TodoItem {
         // this._created_at = createdAt;
         // this._deadLine = deadLine;
         // this._todoLists = []
+    }
+
+    get todoLists(): TodoList[] {
+        return this._todoLists;
+    }
+
+    set todoLists(value: TodoList[]) {
+        this._todoLists = value;
     }
 
     get description(): string {
@@ -32,6 +40,9 @@ export class TodoItem {
         this._todoLists.push(todoList)
     }
 
+    updateTodoList(todoList: TodoList) {
+        this._todoLists.push(todoList)
+    }
     // get deadLine(): Date {
     //     return this._deadLine;
     // }
@@ -65,7 +76,10 @@ export class TodoItem {
     // }
 
 
-    removeTodoList(todoList: TodoList) {
-
+    public deleteTodoList(todoList: TodoList): void {
+        const index = this._todoLists.indexOf(todoList);
+        if (index !== -1) {
+            this._todoLists.splice(index, 1);
+        }
     }
 }
