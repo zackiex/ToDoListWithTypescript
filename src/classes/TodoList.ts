@@ -3,12 +3,16 @@ import {User} from "./User";
 
 export class TodoList {
     private _listName: string;
-    private _user: User | undefined;
-    private _todoItems: TodoItem[];
+    private _user: User;
+    private _todoItems: TodoItem[] = [];
 
-    constructor(listName: string) {
+    constructor(listName: string, user: User) {
         this._listName = listName;
-        this._todoItems = [];
+
+        //1 User
+        this._user = user
+        //to N TodoLists
+        user._todoLists.push(this)
     }
 
     get listName(): string {
@@ -19,33 +23,33 @@ export class TodoList {
         this._listName = name;
     }
 
-    get user(): User | undefined {
+    get user(): User {
         return this._user;
     }
 
-    set user(user: User | undefined) {
+    set user(user: User) {
         this._user = user;
     }
 
-    get todoItem(): TodoItem[] {
+    get todoItems(): TodoItem[] {
         return this._todoItems;
     }
 
-    set todoItem(todoItem: TodoItem[]) {
+    set todoItems(todoItem: TodoItem[]) {
         this._todoItems = todoItem;
     }
 
-    createUser(user: User) {
-        this._user = user;
-        user._todoLists.push(this);
-    }
-
-    createTodoItem(description: string, deadLine: Date, createdAt: Date, category: string) {
-        const newTodoItem = new TodoItem(description, deadLine, createdAt, category);
-        this._todoItems.push(newTodoItem);
-        return newTodoItem;
-    }
-
+    // createTodoItem(description: string, deadLine: Date, createdAt: Date, category: string) {
+    //     const newTodoItem = new TodoItem(description, deadLine, createdAt, category);
+    //     this._todoItems.push(newTodoItem);
+    //     return newTodoItem;
+    // }
+    //
+    // createUser(user: User) {
+    //     this._user = user;
+    //     user._todoLists.push(this);
+    // }
+    //
     // deleteTodoItem(todoItem: TodoItem) {
     //     const index = this._todoItems.indexOf(todoItem);
     //     if (index > -1) {

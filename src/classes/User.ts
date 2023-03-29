@@ -2,11 +2,10 @@ import {TodoList} from "./TodoList";
 
 export class User {
     private _username: string;
-    _todoLists: TodoList[];
+    _todoLists: TodoList[] = [];
 
     constructor(username: string) {
         this._username = username;
-        this._todoLists = [];
     }
 
     get username(): string {
@@ -25,21 +24,17 @@ export class User {
         this._todoLists = todoList;
     }
 
-    createTodoList(title: string) {
-        const newTodoList = new TodoList(title);
-        this._todoLists.push(newTodoList);
-        return newTodoList;
-    }
-
-    deleteTodoList(todoList: TodoList) {
-        const index = this._todoLists.indexOf(todoList);
-        if (index > -1) {
-            this._todoLists.splice(index, 1);
-        }
-    }
-
-    // addTodoList(name: string) {
-    //     const todo = new TodoList([], name);
-    //     this._todos.push(todo);
+    // createTodoList(title: string) {
+    //     const newTodoList = new TodoList(title);
+    //     this._todoLists.push(newTodoList);
+    //     return newTodoList;
     // }
+
+    // deleteTodoList(todoList: TodoList) {
+    //     const index = this._todoLists.indexOf(todoList);
+    //     if (index > -1) {
+    //         this._todoLists.splice(index, 1);
+    //     }
+    // }
+
 }
