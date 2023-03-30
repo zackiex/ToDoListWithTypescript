@@ -15,6 +15,11 @@ export class TodoItem {
         // this._created_at = createdAt;
         // this._deadLine = deadLine;
         // this._todoLists = []
+
+        //Many TodoItems
+        todoList.todoItems.push(this)
+        //to Many TodoLists
+        this._todoLists.push(todoList)
     }
 
     get todoLists(): TodoList[] {
@@ -43,6 +48,14 @@ export class TodoItem {
     updateTodoList(todoList: TodoList) {
         this._todoLists.push(todoList)
     }
+
+    public deleteTodoList(todoList: TodoList): void {
+        const index = this._todoLists.indexOf(todoList);
+        if (index !== -1) {
+            this._todoLists.splice(index, 1);
+        }
+    }
+
     // get deadLine(): Date {
     //     return this._deadLine;
     // }
@@ -74,12 +87,4 @@ export class TodoItem {
     // completeItem() {
     //     this._isCompleted = true;
     // }
-
-
-    public deleteTodoList(todoList: TodoList): void {
-        const index = this._todoLists.indexOf(todoList);
-        if (index !== -1) {
-            this._todoLists.splice(index, 1);
-        }
-    }
 }

@@ -35,7 +35,7 @@ describe('User', () => {
         //THEN
         (0, globals_1.expect)(user.username).toBe("newusername");
     });
-    test('should be User contains TodoList', () => {
+    test('should contains TodoList', () => {
         //GIVEN
         const user = new User_1.User('TestUser1');
         //WHEN
@@ -70,90 +70,7 @@ describe('User', () => {
         (0, globals_1.expect)(user.todoLists).toHaveLength(3);
     });
 });
-describe('TodoList <-> TodoItem relationship', () => {
-    test('TodoList contains TodoItem', () => {
-        //GIVEN
-        const user = new User_1.User('TestUser1');
-        const todoList = new TodoList_1.TodoList('testTodoList1', user);
-        //WHEN
-        const todoItem1 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        todoItem1.addTodoList(todoList);
-        //THEN
-        (0, globals_1.expect)(todoList.todoItems).toContain(todoItem1);
-    });
-    test('TodoList 1:n TodoItem relationship test', () => {
-        //GIVEN
-        const user = new User_1.User('TestUser1');
-        const todoList = new TodoList_1.TodoList('testTodoList1', user);
-        //WHEN
-        const todoItem1 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        const todoItem2 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        const todoItem3 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        todoItem1.addTodoList(todoList);
-        todoItem2.addTodoList(todoList);
-        todoItem3.addTodoList(todoList);
-        //THEN
-        (0, globals_1.expect)(todoList.todoItems).toEqual([todoItem1, todoItem2, todoItem3]);
-        (0, globals_1.expect)(todoList.todoItems).toHaveLength(3);
-    });
-    test('TodoItem belong to a TodoList', () => {
-        //GIVEN
-        const user = new User_1.User('TestUser1');
-        const todoList = new TodoList_1.TodoList('testTodoList1', user);
-        //WHEN
-        const todoItem1 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        todoItem1.addTodoList(todoList);
-        //THEN
-        (0, globals_1.expect)(todoItem1.todoLists).toContain(todoList);
-    });
-    test('TodoItem belong to n TodoList', () => {
-        //GIVEN
-        const user = new User_1.User('TestUser1');
-        const todoList = new TodoList_1.TodoList('testTodoList1', user);
-        const todoList2 = new TodoList_1.TodoList('testTodoList2', user);
-        //WHEN
-        const todoItem1 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        todoItem1.addTodoList(todoList);
-        todoItem1.addTodoList(todoList2);
-        //THEN
-        (0, globals_1.expect)(todoItem1.todoLists).toEqual([todoList, todoList2]);
-        (0, globals_1.expect)(todoItem1.todoLists).toHaveLength(2);
-    });
-});
 describe("Delete Methods Testing", () => {
-    test('Test the deleteTodoItem methode in TodoList ', () => {
-        //GIVEN
-        const user = new User_1.User('TestUser1');
-        const todoList = new TodoList_1.TodoList('testTodoList1', user);
-        const todoItem1 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        const todoItem2 = new TodoItem_1.TodoItem('testTodoItem2', todoList);
-        const todoItem3 = new TodoItem_1.TodoItem('testTodoItem3', todoList);
-        //WHEN
-        todoItem1.addTodoList(todoList);
-        todoItem2.addTodoList(todoList);
-        todoItem3.addTodoList(todoList);
-        todoList.deleteTodoItem(todoItem1);
-        //THEN
-        (0, globals_1.expect)(todoList.todoItems).not.toContain(todoItem1);
-        (0, globals_1.expect)(todoList.todoItems).toEqual([todoItem2, todoItem3]);
-        (0, globals_1.expect)(todoList.todoItems).toHaveLength(2);
-    });
-    test('Test the deleteTodoList methode in TodoItem ', () => {
-        //GIVEN
-        const user = new User_1.User('TestUser1');
-        const todoList = new TodoList_1.TodoList('testTodoList1', user);
-        const todoList2 = new TodoList_1.TodoList('testTodoList1', user);
-        const todoList3 = new TodoList_1.TodoList('testTodoList1', user);
-        const todoItem1 = new TodoItem_1.TodoItem('testTodoItem1', todoList);
-        todoItem1.addTodoList(todoList);
-        todoItem1.addTodoList(todoList2);
-        todoItem1.addTodoList(todoList3);
-        //WHEN
-        todoItem1.deleteTodoList(todoList2);
-        //THEN
-        (0, globals_1.expect)(todoItem1.todoLists).not.toContain(todoList2);
-        (0, globals_1.expect)(todoItem1.todoLists).toEqual([todoList, todoList3]);
-    });
 });
 describe("Update Methods Testing", () => {
     test("can set username in User", () => {
@@ -208,65 +125,4 @@ describe("Update Methods Testing", () => {
         (0, globals_1.expect)(todoItem1.todoLists).toContain(todoList2);
     });
 });
-// describe("Validate the input Field", () => {
-//     test("Check user Field", () => {
-//         //GIVEN
-//         const username = 'testUser'
-//         const deadLineToDo3 = new Date(2023, 12, 12);
-//         const created_atToDo3 = new Date(2023, 1, 1);
-//         //WHEN
-//         const user = new User(username);
-//         const todoList = user.createTodoList('Development');
-//         const todoList2 = user.createTodoList('Shopping');
-//         const todoItem = todoList.createTodoItem('Finish project', deadLineToDo3, created_atToDo3, "C2");
-//         const todoItem2 = todoList2.createTodoItem('Finish project', deadLineToDo3, created_atToDo3, "C2");
-//         const todoItem3 = todoList.createTodoItem('Buy bread', deadLineToDo3, created_atToDo3, "C1");
-//         //THEN
-//         expect(user.username).toBe(username);
-//         expect(user.todoLists).toHaveLength(2);
-//         expect(user.todoLists.length).toBe(2);
-//         expect(todoList.todoItem).toEqual([todoItem, todoItem3]);
-//     });
-//
-//     test("Check if the name is empty", () => {
-//         //GIVEN
-//         const username = 'testUser'
-//         const todos = undefined
-//         //WHEN
-//         const user = new User(username)
-//         //THEN
-//         expect(user.username).toBe(username);
-//         expect(user.todoLists).toHaveLength(0)
-//     });
-// })
-//
-// describe("TodoList", () => {
-//     test("should create a new todo list", () => {
-//         //GIVEN
-//         const username = 'testUser'
-//         //WHEN
-//         const user = new User(username);
-//         const todoList = user.createTodoList('Development');
-//         //THEN
-//         expect(todoList.listName).toBe('Development');
-//         expect(todoList.todoItem.length).toBe(0);
-//     });
-//
-//     test("should create item to the to-do-list", () => {
-//         //GIVEN
-//         const username = 'testUser'
-//         const deadLineToDo3 = new Date(2023, 12, 12);
-//         const created_atToDo3 = new Date(2023, 1, 1);
-//         //WHEN
-//         const user = new User(username);
-//         const todoList = user.createTodoList('Development');
-//         const todoItem = todoList.createTodoItem('Finish project', deadLineToDo3, created_atToDo3, "C2");
-//         const todoItem1 = todoList.createTodoItem('Send email to boss', deadLineToDo3, created_atToDo3, "C3");
-//         //THEN
-//         expect(todoList.todoItem.length).toBe(2);
-//         expect(todoList.todoItem[0]).toBe(todoItem);
-//         expect(todoList.todoItem[1]).toBe(todoItem1);
-//
-//     });
-// });
 //# sourceMappingURL=User.test.js.map

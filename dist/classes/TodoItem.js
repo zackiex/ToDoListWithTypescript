@@ -14,6 +14,10 @@ class TodoItem {
         // this._created_at = createdAt;
         // this._deadLine = deadLine;
         // this._todoLists = []
+        //Many TodoItems
+        todoList.todoItems.push(this);
+        //to Many TodoLists
+        this._todoLists.push(todoList);
     }
     get todoLists() {
         return this._todoLists;
@@ -36,37 +40,6 @@ class TodoItem {
     updateTodoList(todoList) {
         this._todoLists.push(todoList);
     }
-    // get deadLine(): Date {
-    //     return this._deadLine;
-    // }
-    //
-    // set deadLine(deadline: Date) {
-    //     this._deadLine = deadline;
-    // }
-    //
-    // get createdDate(): Date {
-    //     return this._created_at;
-    // }
-    //
-    // set createdDate(crd: Date) {
-    //     this._created_at = crd;
-    // }
-    //
-    // get category(): string {
-    //     return this._category;
-    // }
-    //
-    // set category(c: string) {
-    //     this._category = c;
-    // }
-    //
-    // get comptedTask(): boolean {
-    //     return this._isCompleted;
-    // }
-    //
-    // completeItem() {
-    //     this._isCompleted = true;
-    // }
     deleteTodoList(todoList) {
         const index = this._todoLists.indexOf(todoList);
         if (index !== -1) {
