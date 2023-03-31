@@ -44,6 +44,10 @@ class TodoItem {
         const index = this._todoLists.indexOf(todoList);
         if (index !== -1) {
             this._todoLists.splice(index, 1);
+            const itemIndex = todoList.todoItems.indexOf(this);
+            if (itemIndex !== -1) {
+                todoList.todoItems.splice(itemIndex, 1);
+            }
         }
     }
 }

@@ -1,3 +1,93 @@
+import express from 'express';
+import {User} from './classes/User';
+import {TodoList} from './classes/TodoList';
+import {TodoItem} from './classes/TodoItem';
+import bodyParser from "body-parser";
+
+const app = express();
+app.use(bodyParser.json());
+
+const users: User[] = [];
+
+// Create a new user
+app.post("/users", (req, res) => {
+    const username = req.body.username;
+    const user = new User(username);
+    users.push(user);
+    res.send(user);
+});
+
+// Get all users
+app.get("/users", (req, res) => {
+    res.send(users);
+});
+
+// get all user by name
+app.get('/users/:username', (req, res) => {
+    const userName = req.params.username;
+    const user = users.find(user => user.username === userName)
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// update user name
+app.put('/users/:username', (req, res) => {
+    const userName = req.params.username;
+    const user = users.find(user => user.username === userName)
+    if (user) {
+        user.username = req.body.username;
+        res.json(user);
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// Delete user name
+app.delete('/users/:username', (req, res) => {
+    const userName = req.params.username;
+    const index = users.findIndex(user => user.username === userName);
+    if (index !== -1) {
+        users.splice(index, 1);
+        res.sendStatus(204);
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// create todo list
+app.post('/users/:username/todoLists', (req, res) => {
+    const username = req.params.username;
+    const indexUser = users.findIndex(user => user.username === username);
+    const user = users[indexUser]
+    if (user) {
+        const {listName} = req.body;
+        const todoList = new TodoList(listName, user);
+        user.todoLists.push(todoList);
+        res.json(user);
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// get todo list
+app.get('/users/:username/todolists', (req, res) => {
+    const username = req.params.username;
+    const index = users.findIndex(user => user.username === username);
+    const user = users[index]
+    if (user) {
+        res.json(user.todoLists)
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
+});
+
 // import express, {Express, Request, Response} from "express";
 // import {User} from "./classes/User";
 // import {TodoList} from "./classes/TodoList";
