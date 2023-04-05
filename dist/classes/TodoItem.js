@@ -19,6 +19,12 @@ class TodoItem {
         //to Many TodoLists
         this._todoLists.push(todoList);
     }
+    // For API for Fixing JSON Circular References.
+    toJSON() {
+        return {
+            description: this._description,
+        };
+    }
     get todoLists() {
         return this._todoLists;
     }
