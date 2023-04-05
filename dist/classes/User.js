@@ -23,6 +23,8 @@ class User {
         if (index !== -1) {
             this.todoLists.splice(index, 1);
         }
+        todoList.user = {};
+        //todoList.user  = {} as User;
     }
 }
 exports.User = User;

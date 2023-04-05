@@ -47,7 +47,30 @@ describe('User', () => {
             expect(user.todoLists).toHaveLength(1);
             expect(user.todoLists).toContain(todoList)
             expect(user.todoLists[0]).toBe(todoList);
+            // expect(todoList.user)....
         });
+        test('delete2', () => {
+            //GIVEN
+            const user = new User('Blah')
+            const todoList1 = new TodoList('BlahTDL', user)
+            const todoList2 = new TodoList('BlahTDL', user)
+            const todoItem = new TodoItem('blah', todoList1)
+
+            expect(user.todoLists).toContain(todoList1)
+            expect(todoList1.user).toEqual(user)
+            expect(todoList1.todoItems).toContain(todoItem)
+            expect(todoItem.todoLists).toEqual([todoList1])
+
+            //when
+            user.deleteTodoList(todoList1)
+            todoList1.deleteTodoItem(todoItem)
+
+            expect(user.todoLists).toEqual([todoList2])
+            expect(todoList1.user).toEqual({})
+            expect(todoList2.user).toEqual(user)
+            expect(todoList1.todoItems).toEqual([])
+            expect(todoItem.todoLists).toEqual([])
+        })
         test('should be able to delete a TodoList', () => {
             //GIVEN
             const user = new User('TestUser1')
@@ -60,6 +83,7 @@ describe('User', () => {
             expect(user.todoLists).not.toContain(todoList3)
             expect(user.todoLists).toHaveLength(2)
             expect(user.todoLists).toEqual([todoList, todoList2])
+            // expect(todoList1.user).toEqual({})
         });
 
         test('Relationship-Test -> User 1:n Todolist ', () => {
@@ -73,5 +97,18 @@ describe('User', () => {
             expect(user.todoLists).toEqual([todoList2, todoList, todoList3])
             expect(user.todoLists).toHaveLength(3)
         });
+    test('update', () => {
+        //GIVEN
+        const user = new User('TestUser1')
+        //WHEN
+        const todoList = new TodoList('testTodoList1', user)
+        const todoList2 = new TodoList('testTodoList2', user)
+        user.todoLists= [todoList2]
+        //THEN
+        expect(user.todoLists).toContain(todoList2)
+        expect(user.todoLists).not.toContain(todoList)
+        expect(user.todoLists).toEqual([todoList2])
+        expect(user.todoLists).toHaveLength(1)
+    });
     }
 );

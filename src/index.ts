@@ -11,18 +11,25 @@ const users: User[] = [];
 
 // Create a new user
 app.post("/users", (req, res) => {
-    const username = req.body.username;
-    const user = new User(username);
-    users.push(user);
-    res.send(user);
+    if (!req.body.username) {
+        res.status(404).send('The username in body is required')
+    } else {
+        const username = req.body.username;
+        const user = new User(username);
+        users.push(user);
+        res.send(user);
+    }
 });
 
 // Get all users
 app.get("/users", (req, res) => {
+    if (users.length = 0) {
+        res.send('Users list is empty')
+    }
     res.send(users);
 });
 
-// get all user by name
+// get user by name
 app.get('/users/:username', (req, res) => {
     const userName = req.params.username;
     const user = users.find(user => user.username === userName)
@@ -58,27 +65,43 @@ app.delete('/users/:username', (req, res) => {
 });
 
 // create todo list
-app.post('/users/:username/todoLists', (req, res) => {
+app.post('/users/:username/todoList', (req, res) => {
     const username = req.params.username;
     const indexUser = users.findIndex(user => user.username === username);
     const user = users[indexUser]
     if (user) {
-        const {listName} = req.body;
-        const todoList = new TodoList(listName, user);
-        user.todoLists.push(todoList);
-        res.json(user);
+        const todoListName = req.body.listName;
+        const todoList = new TodoList(todoListName, user);
+        res.json(todoList.toJSON());
     } else {
         res.status(404).send('User not found');
     }
 });
 
-// get todo list
+// get all todo list from user
 app.get('/users/:username/todolists', (req, res) => {
     const username = req.params.username;
-    const index = users.findIndex(user => user.username === username);
-    const user = users[index]
+    const indexUser = users.findIndex(user => user.username === username);
+    const user = users[indexUser]
     if (user) {
         res.json(user.todoLists)
+    } else {
+        res.status(404).send('User not found');
+    }
+});
+
+// update todo list
+app.put('/users/:username/todoList', (req, res) => {
+    const username = req.params.username;
+    const indexUser = users.findIndex(user => user.username === username);
+    const user = users[indexUser]
+    const updateTodoListName = req.body.listName;
+    user.todoLists= [updateTodoListName]
+    console.log(user)
+    if (user) {
+        const updateTodoListName = req.body.listName;
+        user.todoLists= [updateTodoListName]
+        res.json(user.todoLists);
     } else {
         res.status(404).send('User not found');
     }

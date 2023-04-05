@@ -15,6 +15,15 @@ export class TodoList {
         user._todoLists.push(this)
     }
 
+   // For API for Fixing JSON Circular References.
+    toJSON() {
+        return {
+            listName: this._listName,
+            todoItems: this._todoItems
+        };
+    }
+
+
     get listName(): string {
         return this._listName;
     }
@@ -44,5 +53,8 @@ export class TodoList {
         if (index !== -1) {
             this.todoItems.splice(index, 1);
         }
+        //TODO: both way delete
+        todoItem.todoLists = [];
     }
+
 }

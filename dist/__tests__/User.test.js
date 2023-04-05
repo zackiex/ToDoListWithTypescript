@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const TodoItem_1 = require("../classes/TodoItem");
 const User_1 = require("../classes/User");
 const TodoList_1 = require("../classes/TodoList");
 const globals_1 = require("@jest/globals");
@@ -43,6 +44,26 @@ describe('User', () => {
         (0, globals_1.expect)(user.todoLists).toHaveLength(1);
         (0, globals_1.expect)(user.todoLists).toContain(todoList);
         (0, globals_1.expect)(user.todoLists[0]).toBe(todoList);
+        // expect(todoList.user)....
+    });
+    test('delete2', () => {
+        //GIVEN
+        const user = new User_1.User('Blah');
+        const todoList1 = new TodoList_1.TodoList('BlahTDL', user);
+        const todoList2 = new TodoList_1.TodoList('BlahTDL', user);
+        const todoItem = new TodoItem_1.TodoItem('blah', todoList1);
+        (0, globals_1.expect)(user.todoLists).toContain(todoList1);
+        (0, globals_1.expect)(todoList1.user).toEqual(user);
+        (0, globals_1.expect)(todoList1.todoItems).toContain(todoItem);
+        (0, globals_1.expect)(todoItem.todoLists).toEqual([todoList1]);
+        //when
+        user.deleteTodoList(todoList1);
+        todoList1.deleteTodoItem(todoItem);
+        (0, globals_1.expect)(user.todoLists).toEqual([todoList2]);
+        (0, globals_1.expect)(todoList1.user).toEqual({});
+        (0, globals_1.expect)(todoList2.user).toEqual(user);
+        (0, globals_1.expect)(todoList1.todoItems).toEqual([]);
+        (0, globals_1.expect)(todoItem.todoLists).toEqual([]);
     });
     test('should be able to delete a TodoList', () => {
         //GIVEN
@@ -56,6 +77,7 @@ describe('User', () => {
         (0, globals_1.expect)(user.todoLists).not.toContain(todoList3);
         (0, globals_1.expect)(user.todoLists).toHaveLength(2);
         (0, globals_1.expect)(user.todoLists).toEqual([todoList, todoList2]);
+        // expect(todoList1.user).toEqual({})
     });
     test('Relationship-Test -> User 1:n Todolist ', () => {
         //GIVEN
@@ -67,6 +89,19 @@ describe('User', () => {
         //THEN
         (0, globals_1.expect)(user.todoLists).toEqual([todoList2, todoList, todoList3]);
         (0, globals_1.expect)(user.todoLists).toHaveLength(3);
+    });
+    test('update', () => {
+        //GIVEN
+        const user = new User_1.User('TestUser1');
+        //WHEN
+        const todoList = new TodoList_1.TodoList('testTodoList1', user);
+        const todoList2 = new TodoList_1.TodoList('testTodoList2', user);
+        user.todoLists = [todoList2];
+        //THEN
+        (0, globals_1.expect)(user.todoLists).toContain(todoList2);
+        (0, globals_1.expect)(user.todoLists).not.toContain(todoList);
+        (0, globals_1.expect)(user.todoLists).toEqual([todoList2]);
+        (0, globals_1.expect)(user.todoLists).toHaveLength(1);
     });
 });
 //# sourceMappingURL=User.test.js.map
