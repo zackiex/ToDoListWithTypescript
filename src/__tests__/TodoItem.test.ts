@@ -45,7 +45,6 @@ describe('TodoItem', () => {
         expect(todoitem.todoLists).toEqual([todolist2])
         expect(todoitem.todoLists).toHaveLength(1)
     });
-
     test('TodoItem belong to a TodoList', () => {
         //GIVEN
         const user = new User('TestUser1')

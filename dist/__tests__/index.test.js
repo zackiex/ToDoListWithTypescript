@@ -35,10 +35,10 @@ afterEach(() => {
 describe('API /users', () => {
     test("Should create a new user", () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVEN
-        //WHERE
         const response = yield (0, supertest_1.default)(index_1.default).post("/users").send({
             "username": "testUserPost"
         });
+        //WHERE
         //THEN
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(new User_1.User("testUserPost"));
@@ -72,8 +72,8 @@ describe('API /users', () => {
         expect(deleteUserRes.body).toEqual({});
     }));
 });
-describe('API /user/todoList', () => {
-    test('Should create a todoList for user by name', () => __awaiter(void 0, void 0, void 0, function* () {
+describe('API /users/todoList', () => {
+    test('Should create a todoList for user by username', () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVE
         const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({ "username": "createUser" });
         //WHEN
@@ -87,7 +87,7 @@ describe('API /user/todoList', () => {
             "todoItems": []
         });
     }));
-    test('Should update the todoList name', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('Should update the todoList for user by username and todoList name', () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVEN
         const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({ "username": "User" });
         const createtodoListRes = yield (0, supertest_1.default)(index_1.default).post('/users/User/todoList').send({
@@ -104,7 +104,7 @@ describe('API /user/todoList', () => {
                 "todoItems": []
             }]);
     }));
-    test('Should delete todoList by name', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('Should delete todoList by by username and todoList name', () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVEN
         const creatUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({ "username": "testUser" });
         const creatTodoListRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/todoList').send({
@@ -118,7 +118,7 @@ describe('API /user/todoList', () => {
     }));
 });
 describe('API /user/todoList/todoItem', () => {
-    test('Should creat a todoItem', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('Should create a todoItem', () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVEN
         const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({
             "username": "testUser"
@@ -133,7 +133,7 @@ describe('API /user/todoList/todoItem', () => {
         expect(createTodoItemRes.statusCode).toBe(200);
         expect(createTodoItemRes.body).toEqual({ "description": "todoItemName" });
     }));
-    test('Should update a todoItem by name', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('Should update a todoItem by name , username and todoList name', () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVEN
         const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({
             "username": "testUser"
@@ -150,7 +150,7 @@ describe('API /user/todoList/todoItem', () => {
         expect(updateTodoItemRes.statusCode).toBe(200);
         expect(updateTodoItemRes.body).toEqual([{ "description": "updateTodoItemName" }]);
     }));
-    test('Should delete todoItem by name', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('Should delete todoItem by name , username and todoList name', () => __awaiter(void 0, void 0, void 0, function* () {
         //GIVEN
         const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({
             "username": "testUser"

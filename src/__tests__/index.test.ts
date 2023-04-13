@@ -26,15 +26,14 @@ afterEach(() => {
 describe('API /users', () => {
     test("Should create a new user", async () => {
         //GIVEN
-        //WHERE
         const response = await request(app).post("/users").send({
             "username": "testUserPost"
         });
+        //WHERE
         //THEN
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(new User("testUserPost"));
     });
-
     test('Should update the user by name', async () => {
         //GIVEN
         const createUserResponse = await request(app)
@@ -52,7 +51,6 @@ describe('API /users', () => {
         expect(updateUserResponse.status).toBe(200);
         expect(updateUserResponse.body).toEqual(new User("updateUser"));
     });
-
     test('Should delete user by name', async () => {
         //GIVEN
         const createUserRes = await request(app).post('/users').send({
@@ -64,10 +62,9 @@ describe('API /users', () => {
         expect(deleteUserRes.statusCode).toBe(200);
         expect(deleteUserRes.body).toEqual({});
     });
-
 });
-describe('API /user/todoList', () => {
-    test('Should create a todoList for user by name', async () => {
+describe('API /users/todoList', () => {
+    test('Should create a todoList for user by username', async () => {
         //GIVE
         const createUserRes = await request(app).post('/users').send({"username": "createUser"})
         //WHEN
@@ -81,8 +78,7 @@ describe('API /user/todoList', () => {
             "todoItems": []
         })
     });
-
-    test('Should update the todoList name', async () => {
+    test('Should update the todoList for user by username and todoList name', async () => {
         //GIVEN
         const createUserRes = await request(app).post('/users').send({"username": "User"})
         const createtodoListRes = await request(app).post('/users/User/todoList').send({
@@ -99,8 +95,7 @@ describe('API /user/todoList', () => {
             "todoItems": []
         }]);
     });
-
-    test('Should delete todoList by name', async () => {
+    test('Should delete todoList by by username and todoList name', async () => {
         //GIVEN
         const creatUserRes = await request(app).post('/users').send({"username": "testUser"});
         const creatTodoListRes = await request(app).post('/users/testUser/todoList').send({
@@ -115,7 +110,7 @@ describe('API /user/todoList', () => {
 });
 
 describe('API /user/todoList/todoItem', () => {
-    test('Should creat a todoItem', async () => {
+    test('Should create a todoItem', async () => {
         //GIVEN
         const createUserRes = await request(app).post('/users').send({
             "username": "testUser"
@@ -130,8 +125,7 @@ describe('API /user/todoList/todoItem', () => {
         expect(createTodoItemRes.statusCode).toBe(200);
         expect(createTodoItemRes.body).toEqual({"description": "todoItemName"})
     });
-
-    test('Should update a todoItem by name', async () => {
+    test('Should update a todoItem by name , username and todoList name', async () => {
         //GIVEN
         const createUserRes = await request(app).post('/users').send({
             "username": "testUser"
@@ -148,8 +142,7 @@ describe('API /user/todoList/todoItem', () => {
         expect(updateTodoItemRes.statusCode).toBe(200);
         expect(updateTodoItemRes.body).toEqual([{"description": "updateTodoItemName"}]);
     });
-
-    test('Should delete todoItem by name', async () => {
+    test('Should delete todoItem by name , username and todoList name', async () => {
         //GIVEN
         const createUserRes = await request(app).post('/users').send({
             "username": "testUser"
