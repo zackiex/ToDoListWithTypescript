@@ -66,36 +66,4 @@ export class TodoItem {
             }
         }
     }
-
-    // get deadLine(): Date {
-    //     return this._deadLine;
-    // }
-    //
-    // set deadLine(deadline: Date) {
-    //     this._deadLine = deadline;
-    // }
-    //
-    // get createdDate(): Date {
-    //     return this._created_at;
-    // }
-    //
-    // set createdDate(crd: Date) {
-    //     this._created_at = crd;
-    // }
-    //
-    // get category(): string {
-    //     return this._category;
-    // }
-    //
-    // set category(c: string) {
-    //     this._category = c;
-    // }
-    //
-    // get comptedTask(): boolean {
-    //     return this._isCompleted;
-    // }
-    //
-    // completeItem() {
-    //     this._isCompleted = true;
-    // }
 }

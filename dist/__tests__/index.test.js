@@ -117,4 +117,54 @@ describe('API /user/todoList', () => {
         expect(deletTodoListRes.body).toEqual([]);
     }));
 });
+describe('API /user/todoList/todoItem', () => {
+    test('Should creat a todoItem', () => __awaiter(void 0, void 0, void 0, function* () {
+        //GIVEN
+        const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({
+            "username": "testUser"
+        });
+        const createTodoListRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/todoList').send({
+            "listName": "TodoListName",
+        });
+        //WHEN
+        const createTodoItemRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/TodoListName/todoItem')
+            .send({ "itemName": "todoItemName" });
+        //THEN
+        expect(createTodoItemRes.statusCode).toBe(200);
+        expect(createTodoItemRes.body).toEqual({ "description": "todoItemName" });
+    }));
+    test('Should update a todoItem by name', () => __awaiter(void 0, void 0, void 0, function* () {
+        //GIVEN
+        const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({
+            "username": "testUser"
+        });
+        const createTodoListRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/todoList').send({
+            "listName": "TodoListName",
+        });
+        const createTodoItemRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/TodoListName/todoItem')
+            .send({ "itemName": "todoItemName" });
+        //WHEN
+        const updateTodoItemRes = yield (0, supertest_1.default)(index_1.default).put('/users/testUser/TodoListName/todoItemName')
+            .send({ "itemName": "updateTodoItemName" });
+        //THEN
+        expect(updateTodoItemRes.statusCode).toBe(200);
+        expect(updateTodoItemRes.body).toEqual([{ "description": "updateTodoItemName" }]);
+    }));
+    test('Should delete todoItem by name', () => __awaiter(void 0, void 0, void 0, function* () {
+        //GIVEN
+        const createUserRes = yield (0, supertest_1.default)(index_1.default).post('/users').send({
+            "username": "testUser"
+        });
+        const createTodoListRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/todoList').send({
+            "listName": "TodoListName",
+        });
+        const createTodoItemRes = yield (0, supertest_1.default)(index_1.default).post('/users/testUser/TodoListName/todoItem')
+            .send({ "itemName": "todoItemName" });
+        //WHEN
+        const deletetodoItemRes = yield (0, supertest_1.default)(index_1.default).delete('/users/testUser/TodoListName/todoItemName');
+        //THEN
+        expect(deletetodoItemRes.statusCode).toBe(200);
+        expect(deletetodoItemRes.body).toEqual([]);
+    }));
+});
 //# sourceMappingURL=index.test.js.map
