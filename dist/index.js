@@ -43,7 +43,7 @@ app.get('/users/:username', (req, res) => {
 });
 // update user name
 app.put('/users/:username', (req, res) => {
-    if (!req.body.username) {
+    if (!req.params.username) {
         res.status(404).send('The new username in body is required');
     }
     const userName = req.params.username;
@@ -62,7 +62,7 @@ app.delete('/users/:username', (req, res) => {
     const index = users.findIndex(user => user.username === userName);
     if (index !== -1) {
         users.splice(index, 1);
-        res.sendStatus(204);
+        res.sendStatus(200);
     }
     else {
         res.status(404).send('User not found');
@@ -176,7 +176,7 @@ app.post('/users/:username/:listName/todoItem', (req, res) => {
     }
 });
 // update todoItems
-app.put('/users/:username/:listName/:nameofItem', (req, res) => {
+app.put('/users/:username/:listName/theItemName', (req, res) => {
     if (!req.params.username || !req.params.listName || !req.params.nameofItem) {
         res.status(404).send('The username , the name of todoList and the Item name are required');
     }
@@ -202,9 +202,36 @@ app.put('/users/:username/:listName/:nameofItem', (req, res) => {
         res.status(404).send('User not found');
     }
 });
+// Delete Item
+app.delete('/users/:username/:listName/theItemName', (req, res) => {
+    if (!req.params.username || !req.params.listName || !req.params.nameofItem) {
+        res.status(404).send('The username , the name of todoList and the Item name are required');
+    }
+    const username = req.params.username;
+    const listName = req.params.listName;
+    const nameofItem = req.params.nameofItem;
+    const indexOfUser = users.findIndex(user => user.username == username);
+    const user = users[indexOfUser];
+    if (user) {
+        const indexOfListName = user.todoLists.findIndex(todoList => todoList.listName === listName);
+        const todoLists = user.todoLists[indexOfListName];
+        if (todoLists) {
+            const indexOfItem = todoLists.todoItems.findIndex(todoItem => todoItem.description == nameofItem);
+            todoLists.deleteTodoItem(todoLists.todoItems[indexOfItem]);
+            res.json(todoLists.todoItems);
+        }
+        else {
+            res.status(404).send('Todolist not found');
+        }
+    }
+    else {
+        res.status(404).send('User not found');
+    }
+});
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
+exports.default = app;
 // import express, {Express, Request, Response} from "express";
 // import {User} from "./classes/User";
 // import {TodoList} from "./classes/TodoList";
